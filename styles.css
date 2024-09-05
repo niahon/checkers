@@ -1,0 +1,47 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+main {
+    text-align: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    width: 550px;
+    height: 550px;
+    margin: 0 auto;
+}
+
+    .tile {
+        width: 100%;
+        height: 100%; 
+    }
+        .tile.dark {
+            background-color: black;
+        }
+        .tile.light {
+            background-color: lightblue;
+        }
+
+    .piece {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+    }
+        .piece.dark {
+            background-color: grey;
+        }
