@@ -25,7 +25,8 @@ main {
     height: 550px;
     margin: 0 auto;
     border: 3px solid black;
-    box-shadow: 5px 5px rgba(0, 0, 0, .6);
+    box-shadow: 
+                3px 3px rgba(40, 20, 20, 0.6);
 }
 
     .tile {
@@ -40,6 +41,9 @@ main {
         }
         .tile.light {
             background-color: lightblue;
+        }
+        .tile.hover {
+            background-color: green;
         }
 
     .piece {

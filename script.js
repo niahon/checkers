@@ -10,6 +10,7 @@ window.addEventListener ("DOMContentLoaded", () => {
     let elTile = document.querySelectorAll('.tile.dark');
     for (element of elTile) {
         element.addEventListener("dragover", dragoverHandler);
+        element.addEventListener("dragleave", removeHover);
         element.addEventListener("drop", dropHandler);
     }
 })
@@ -41,6 +42,14 @@ function darkdragstartHandler(e) {
 function dragoverHandler(e) {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
+    console.log(e.target.children);
+    if (e.target.children.length === 0) {
+        e.target.classList.add('hover');
+    }
+}
+
+function removeHover(e) {
+    e.target.classList.remove('hover');
 }
 
 function dropHandler(e) {
@@ -48,6 +57,7 @@ function dropHandler(e) {
     if (this.children.length > 0) {
         return;
     }
+    removeHover(e);
     let data = e.dataTransfer.getData("text/html");
     e.target.appendChild(document.getElementById(data));
 
