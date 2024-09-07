@@ -1,6 +1,8 @@
 window.addEventListener ("DOMContentLoaded", () => {
     let elLightPieces = document.querySelectorAll('.piece.light');
     let elDarkPieces = document.querySelectorAll('.piece.dark');
+    console.log(elLightPieces);
+    console.log(elDarkPieces);
     for (element of elLightPieces) {
         element.addEventListener("dragstart", lightdragstartHandler);
     }
@@ -15,6 +17,8 @@ window.addEventListener ("DOMContentLoaded", () => {
     }
 })
 
+
+let elRows = Array.from(document.querySelectorAll(".row"));
 let playCount = 0;
 
 function lightdragstartHandler(e) {
@@ -54,14 +58,15 @@ function removeHover(e) {
 
 function dropHandler(e) {
     e.preventDefault();
-    if (this.children.length > 0) {
-        return;
+    let pieceId = e.dataTransfer.getData("text/html");
+    let piece = document.getElementById(pieceId);
+    let piecesOnTile = this.children.length;
+    let tile = e.target;
+    if (legalityChecker(piecesOnTile, piece, tile)) {
+        e.target.appendChild(piece);
+        turnChange();   
     }
     removeHover(e);
-    let data = e.dataTransfer.getData("text/html");
-    e.target.appendChild(document.getElementById(data));
-
-    turnChange();
 }
 
 function turnChange() {
@@ -72,4 +77,29 @@ function turnChange() {
     } else {
         turnText.textContent = "Black's turn";
     }
+}
+
+function legalityChecker(piecesOnTile, currPiece, targetTile) {
+    let currTile = currPiece.parentElement;
+    let currTileRow = (currTile.parentElement);
+    let targetTileRow = (targetTile.parentElement);
+    console.log(targetTileRow.children);
+    if (currPiece.classList.contains('light')) {
+        if (elRows.indexOf(currTileRow) - elRows.indexOf(targetTileRow) !== 1) { // means they aren't adjacent rows
+            return false;
+        }
+    } else if (currPiece.classList.contains('dark')) {
+        if (elRows.indexOf(targetTileRow) - elRows.indexOf(currTileRow) !== 1) {
+            return false;
+        }
+    }
+    let currTileIndex = Array.from(currTileRow).indexOf(currTile);
+    let targetTileIndex = Array.from(targetTileRow).indexOf(targetTile);
+    /* if (currTileIndex - targetTileIndex !== 1 && targetTileIndex - currTileIndex !== 1) {
+        return false;
+    } */
+    if (piecesOnTile > 0) {
+        return false;
+    }
+    return true;
 }

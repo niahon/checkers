@@ -19,14 +19,19 @@ main {
 
 .board {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: 1fr;
     grid-template-rows: repeat(8, 1fr);
     width: 550px;
     height: 550px;
     margin: 0 auto;
     border: 3px solid black;
     box-shadow: 
-                3px 3px rgba(40, 20, 20, 0.6);
+        3px 3px rgba(40, 20, 20, 0.6);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
 }
 
     .tile {
