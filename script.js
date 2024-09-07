@@ -1,8 +1,6 @@
 window.addEventListener ("DOMContentLoaded", () => {
     let elLightPieces = document.querySelectorAll('.piece.light');
     let elDarkPieces = document.querySelectorAll('.piece.dark');
-    console.log(elLightPieces);
-    console.log(elDarkPieces);
     for (element of elLightPieces) {
         element.addEventListener("dragstart", lightdragstartHandler);
     }
@@ -17,8 +15,9 @@ window.addEventListener ("DOMContentLoaded", () => {
     }
 })
 
-
 let elRows = Array.from(document.querySelectorAll(".row"));
+
+
 let playCount = 0;
 
 function lightdragstartHandler(e) {
@@ -46,7 +45,6 @@ function darkdragstartHandler(e) {
 function dragoverHandler(e) {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
-    console.log(e.target.children);
     if (e.target.children.length === 0) {
         e.target.classList.add('hover');
     }
@@ -83,7 +81,6 @@ function legalityChecker(piecesOnTile, currPiece, targetTile) {
     let currTile = currPiece.parentElement;
     let currTileRow = (currTile.parentElement);
     let targetTileRow = (targetTile.parentElement);
-    console.log(targetTileRow.children);
     if (currPiece.classList.contains('light')) {
         if (elRows.indexOf(currTileRow) - elRows.indexOf(targetTileRow) !== 1) { // means they aren't adjacent rows
             return false;
@@ -93,11 +90,15 @@ function legalityChecker(piecesOnTile, currPiece, targetTile) {
             return false;
         }
     }
-    let currTileIndex = Array.from(currTileRow).indexOf(currTile);
-    let targetTileIndex = Array.from(targetTileRow).indexOf(targetTile);
-    /* if (currTileIndex - targetTileIndex !== 1 && targetTileIndex - currTileIndex !== 1) {
+    let currTileIndex = Array.from(currTileRow.children).indexOf(currTile);
+    let targetTileIndex = Array.from(targetTileRow.children).indexOf(targetTile);
+    console.log(currTileIndex);
+    console.log(targetTileIndex);
+
+    if (currTileIndex - targetTileIndex !== 1 && targetTileIndex - currTileIndex !== 1) {
         return false;
-    } */
+    }
+    
     if (piecesOnTile > 0) {
         return false;
     }
